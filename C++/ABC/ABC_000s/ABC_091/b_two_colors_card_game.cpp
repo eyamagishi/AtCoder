@@ -10,7 +10,7 @@ int main() {
   vector<string> T(m);
   for(int i = 0;i < m;i++) {cin >> T[i];}
 
-  int max = 0;
+  int ans = 0;
   for(int i = 0;i < n;i++) {
     int cnt = 0;
     string str = S[i];
@@ -20,7 +20,7 @@ int main() {
     for(int j = 0;j < m;j++) {
       if(T[j] == str) {cnt--;}
     }
-    if(max < cnt) {max = cnt;}
+    ans = max(ans, cnt);
   }
-  cout << max << endl;
+  cout << ans << endl;
 }
