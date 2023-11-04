@@ -49,6 +49,5 @@ int main() {
       }
     }
   }
-
   cout << "Yes" << endl;
 }
