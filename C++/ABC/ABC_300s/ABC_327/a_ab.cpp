@@ -1,4 +1,3 @@
-// 基本的な全探索
 #include<bits/stdc++.h>
 using namespace std;
 

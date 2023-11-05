@@ -1,5 +1,3 @@
-// オーバーフロー
-// pow関数の浮動小数点型による誤差
 #include <iostream>
 using namespace std;
 
