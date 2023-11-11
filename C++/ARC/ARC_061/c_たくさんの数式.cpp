@@ -1,18 +1,28 @@
+// 後回し 20231111
 #include <bits/stdc++.h>
 using namespace std;
 
-int add_dfs(string &s, int i) {
-  if (i == 1) return atoi(s.c_str());
-  int sum = 0;
-  for(int i = 0; i < s.size(); i++) {
-    sum += add_dfs(s, s.size());
-  }
-  return 0;
-}
+typedef long long ll;
+string S;
+int N;
 
 int main() {
-  string s;
-  cin >> s;
-  int sum = add_dfs(s, s.size());
-  cout << sum << endl;
+  cin >> S;
+  N = S.length();
+
+  ll ans = 0;
+  for (int i = 0; i < N; i++) {
+    ll sm = 0;
+    ll a = S[0] - '0';
+    for (int j = 0; j < N; j++) {
+      if (i & (1 << j)) {
+        sm += a;
+        a = 0;
+      }
+      a = a * 10 + S[j + 1] - '0';
+    }
+    sm += a;
+    ans += sm;
+  }
+  cout << ans << endl;
 }
