@@ -1,4 +1,5 @@
 // 後回し 20231111
+// bit全探索での実装
 #include <bits/stdc++.h>
 using namespace std;
 
