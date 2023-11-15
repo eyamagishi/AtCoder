@@ -1,4 +1,5 @@
 // AC: 38:32
+// 再帰処理
 // 時間計算量の工夫
 #include <bits/stdc++.h>
 using namespace std;
@@ -16,3 +17,9 @@ int main() {
 
   cout << S.at(n - 1) << endl;
 }
+
+// 解説 by Nyaan
+// 以下の再帰処理でも解くことが可能
+// 1. 再帰関数
+// 2. メモ化再帰
+// 3. 動的計画法
