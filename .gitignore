@@ -1,5 +1,6 @@
 # 実行ファイルの除外
 a.exe
+a.out
 
 # VoCodeの設定ディレクトリの除外
 .vscode/
