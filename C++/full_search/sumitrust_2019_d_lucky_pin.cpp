@@ -6,15 +6,16 @@ int main() {
   string s;
   cin >> n >> s;
 
-  set<string> pin;
-  for (int i = 0; i < n - 2; i++) {
-    for (int j = i + 1; j < n - 1; j++) {
-      for (int k = j + 1; k < n; k++) {
-        string tmp = string(1, s[i]) + string(1, s[j]) + string(1, s[k]);
-        pin.insert(tmp);
-      }
+  int cnt = 0;
+  for (int i = 0; i < 1000; i++) {
+    int32_t c[3] = {i / 100, (i / 10) % 10, i % 10};
+    int f = 0;
+    for (int j = 0; j < n; j++) {
+      if (s[j] == (c[f] + '0')) f++;
+      if (f == 3) break;
     }
+    if (f == 3) cnt++;
   }
 
-  cout << pin.size() << endl;
+  cout << cnt << endl;
 }
