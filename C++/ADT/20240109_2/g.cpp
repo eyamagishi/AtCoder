@@ -30,5 +30,21 @@ using pii = pair<int, int>;
 
 
 int main() {
-  
+  string X;
+  cin >> X;
+  vi pos(26);
+  rep (i, 0, 26) pos[X[i] - 'a'] = i;
+  int N;
+  cin >> N;
+  vs S(N);
+  fore(s, S) cin >> s;
+  sort(all(S), [&](const string& s, const string& t) {
+    // 文字列の比較
+    int len = min(size(s), size(t));
+    rep (i, 0, len) {
+      if (s[i] != t[i]) return pos[s[i] - 'a'] < pos[t[i] - 'a'];
+    }
+    return size(s) < size(t);
+  });
+  fore (s, S) cout << s << '\n';
 }
