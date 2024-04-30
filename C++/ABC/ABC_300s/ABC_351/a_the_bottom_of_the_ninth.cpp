@@ -1,10 +1,10 @@
 /**
-    * filename: a_the_bottom_of_the_ninth.cpp
-    * author: teniwoha
-    * X: @RyutaUrushi
-    * created: 04/30/2024 18:06:44
-    * result: AC
-    **/
+  * filename: a_the_bottom_of_the_ninth.cpp
+  * author: teniwoha
+  * X: @RyutaUrushi
+  * created: 04/30/2024 18:06:44
+  * result: AC
+  **/
 #include <bits/stdc++.h>
 using namespace std;
 
