@@ -3,7 +3,7 @@
   * author: teniwoha
   * X: @RyutaUrushi
   * created: 05/01/2024 12:48:07
-  * result: 
+  * result: AC
   **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,7 +33,11 @@ using pii = pair<int, int>;
 int main() {
   string s;
   cin >> s;
-  int str_num =  stoi(s.substr(3, 3));
-  
-  cout << str_num << endl;
+  int num =  stoi(s.substr(3, 3));
+  if (0 < num && num < 350 && num != 316) {
+    cout << "Yes" << endl;
+  } else {
+    cout << "No" << endl;
+  }
+  return 0;
 }
