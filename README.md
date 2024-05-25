@@ -1,13 +1,22 @@
-### 編集履歴
-**2023/11/04 README作成**  
-2023/11/14 コミットルール追加
+<h1 align="center">
+  <img alt="header" src="https://typograssy.deno.dev/api?text=AtCoder&frame=none&comment=">
+</h1>
 
-# AtCoder
-競技プログラミングサイト「AtCoder」で解いた問題を保存するリポジトリ  
-https://atcoder.jp/home
+## 使用技術
+- C++(gcc)
+- VSCode
+- wsl(ubuntu)
 
-## このリポジトリの説明・概要
-競技プログラミングサイト「AtCoder」で解いた問題を保存するリポジトリです。
+## プロジェクトの概要
+
+### プロジェクト名
+AtCoder
+
+### プロジェクトの概要
+競技プログラミングサイト「AtCoder」で解いた問題を保存するリポジトリ
+
+### 参考資料
+[AtCoder](https://atcoder.jp/home)
 
 ## 目的
 - 自分が実装したコードをGitHub上に載せることでモチベーションを維持するため
@@ -23,17 +32,14 @@ AtCoder名: teniwoha
 2023/11/01 競プロ開始  
 2023/11/11 ABC328にて茶pef達成  
 
-## バージョン
-準備中
-
 ## コミットルール
-参照  
-https://kinsta.com/jp/knowledgebase/git-rename-branch/
 
-## ==== Rules ====
 1. コミット本文を記述する場合は、概要とコミット本文の間に空行1行あける
 2. 概要は50文字以下で記述する
 3. 概要の末尾はピリオドで終わらない
 4. 概要は命令法で記述する
 5. 本文は72文字で改行する
 6. 本文ではhowではなくwhatとwhyを記述する
+
+## 参考資料
+[「git rename」を使用してGitのブランチ名を変更する方法](https://kinsta.com/jp/knowledgebase/git-rename-branch/)
