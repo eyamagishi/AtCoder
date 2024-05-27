@@ -3,7 +3,7 @@
     * author: teniwoha
     * X: @RyutaUrushi
     * created: 05/27/2024 08:54:01
-    * result: 
+    * result: AC
     **/
 #include <bits/stdc++.h>
 using namespace std;
