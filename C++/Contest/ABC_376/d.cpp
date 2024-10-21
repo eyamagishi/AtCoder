@@ -29,87 +29,83 @@ using pii = pair<int, int>;
 #define all(obj) (obj).begin(), (obj).end()
 #define rall(obj) (obj).rbegin(), (obj).rend()
 
-vector<int> findSmallestCycle(int N, const vector<pair<int, int>>& edges) {
-    vector<vector<int>> graph(N + 1);
+vector<int> findShortestCycle(int N, const vector<vector<int>>& adj) {
+    vector<int> dist(N + 1, INT_MAX);  // 各頂点への距離を保持する
+    vector<int> parent(N + 1, -1);     // 各頂点の親を保持する
+    queue<int> q;
     
-    for (const auto& edge : edges) {
-        graph[edge.first].push_back(edge.second);
-    }
+    // 頂点1からBFSを開始
+    q.push(1);
+    dist[1] = 0;
     
-    int minCycleLength = N + 1;
-    vector<int> minCycle;
-
-    // 各ノードを起点にしてBFS
-    for (int start = 1; start <= N; ++start) {
-        vector<int> distance(N + 1, -1); // 各ノードへの距離を保持
-        vector<int> parent(N + 1, -1);   // 親ノードを追跡する
-        queue<int> q;
+    int min_cycle = INT_MAX;  // 最短閉路の長さを初期化
+    vector<int> cycle_nodes;  // 最短閉路の経路を保持
+    
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
         
-        q.push(start);
-        distance[start] = 0;
-        
-        while (!q.empty()) {
-            int u = q.front();
-            q.pop();
-            
-            for (int v : graph[u]) {
-                if (distance[v] == -1) {
-                    // 未訪問なら訪問して距離を更新
-                    distance[v] = distance[u] + 1;
-                    parent[v] = u;
-                    q.push(v);
-                } else if (parent[u] != v) {
-                    // サイクルを見つけた場合、サイクルの長さを計算
-                    int cycleLength = distance[u] + distance[v] + 1;
-                    if (cycleLength < minCycleLength) {
-                        minCycleLength = cycleLength;
-                        
-                        // サイクルを再構築する
-                        vector<int> cycle;
-                        int curU = u, curV = v;
-                        cycle.push_back(curU);
-                        while (curU != start) {
-                            curU = parent[curU];
-                            cycle.push_back(curU);
-                        }
-                        reverse(cycle.begin(), cycle.end());
-                        cycle.push_back(curV);
-                        while (curV != start) {
-                            curV = parent[curV];
-                            cycle.push_back(curV);
-                        }
-                        minCycle = cycle;
+        for (int v : adj[u]) {
+            if (dist[v] == INT_MAX) {
+                // 未訪問の頂点の場合
+                dist[v] = dist[u] + 1;
+                parent[v] = u;
+                q.push(v);
+            } else if (v != parent[u]) {
+                // 閉路が見つかった場合
+                int cycle_length = dist[u] + dist[v] + 1;
+                if (cycle_length < min_cycle) {
+                    min_cycle = cycle_length;
+                    // 閉路のノードを記録する
+                    vector<int> tmp_cycle;
+                    int cur = u;
+                    while (cur != -1) {
+                        tmp_cycle.push_back(cur);
+                        cur = parent[cur];
                     }
+                    reverse(tmp_cycle.begin(), tmp_cycle.end());
+                    cur = v;
+                    while (cur != -1) {
+                        tmp_cycle.push_back(cur);
+                        cur = parent[cur];
+                    }
+                    cycle_nodes = tmp_cycle;
                 }
             }
         }
     }
-
-    if (minCycleLength == N + 1) {
-        return {};
-    }
     
-    return minCycle;
+    return cycle_nodes;
 }
-
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
-    
+
     int N, M;
     cin >> N >> M;
+    vector<vector<int>> adj(N + 1); // 隣接リスト
 
-    vector<pair<int, int>> edges(M);
+    // 辺の入力
     for (int i = 0; i < M; ++i) {
-        cin >> edges[i].first >> edges[i].second;
+        int a, b;
+        cin >> a >> b;
+        adj[a].push_back(b);
     }
 
-    vector<int> cycle = findSmallestCycle(N, edges);
+    // 閉路の検出
+    vector<int> cycle = findShortestCycle(N, adj);
 
     if (cycle.empty()) {
+        // 閉路が存在しない場合
         cout << -1 << endl;
     } else {
-        cout << cycle.size() << endl;
+        // cout << cycle.size() - 1 << endl;
+        cout << "閉路の長さ: " << cycle.size() << endl;
+        cout << "閉路の経路: ";
+        for (int node : cycle) {
+            cout << node << " ";
+        }
+        cout << endl;
     }
 
     return 0;
