@@ -39,10 +39,8 @@ int main()
     rep(i, 0, n)
     {
         if (s[i] == t[i] ||
-            (s[i] == 'o' && t[i] == '0') ||
-            (t[i] == 'o' && s[i] == '0') ||
-            (s[i] == 'l' && t[i] == '1') ||
-            (t[i] == 'l' && s[i] == '1'))
+            (s[i] == 'o' && t[i] == '0') || (s[i] == '0' && t[i] == 'o') ||
+            (s[i] == 'l' && t[i] == '1') || (s[i] == '1' && t[i] == 'l'))
         {
             continue;
         }
@@ -53,3 +51,21 @@ int main()
     cout << "Yes\n";
     return 0;
 }
+
+/* A - Similar String 解説 by nok0 */
+/* 実装例（C++）： */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// bool sim(char c, char d) {
+//     return c == d or (c == '0' and d == 'o') or (c == 'o' and d == '0') or (c == 'l' and d == '1') or (c == '1' and d == 'l');
+// }
+
+// int main() {
+//     int n;
+//     string s, t;
+//     cin >> n >> s >> t;
+//     bool string_sim = 1;
+//     for(int i = 0; i < n; i++) string_sim &= sim(s[i], t[i]);
+//     cout << (string_sim ? "Yes\n" : "No\n");
+// }
