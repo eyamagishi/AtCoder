@@ -3,7 +3,7 @@
  * author: teniwoha
  * X: @RyutaUrushi
  * created: 10/19/2024 20:58:29
- * result: WA
+ * result: AC(3)
  **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -29,84 +29,75 @@ using pii = pair<int, int>;
 #define all(obj) (obj).begin(), (obj).end()
 #define rall(obj) (obj).rbegin(), (obj).rend()
 
-vector<int> findShortestCycle(int N, const vector<vector<int>>& adj) {
-    vector<int> dist(N + 1, INT_MAX);  // 各頂点への距離を保持する
-    vector<int> parent(N + 1, -1);     // 各頂点の親を保持する
-    queue<int> q;
-    
-    // 頂点1からBFSを開始
-    q.push(1);
-    dist[1] = 0;
-    
-    int min_cycle = INT_MAX;  // 最短閉路の長さを初期化
-    vector<int> cycle_nodes;  // 最短閉路の経路を保持
-    
+#define N 200005
+
+/*
+* ノードと0ノードとの距離を格納する
+* x: ノード
+* y: 0ノードとの距離
+*/
+struct info {
+    int x, y;
+};
+
+// N 頂点 M 辺
+int n, m;
+
+// ノードを訪問済みとしてマークする
+int vis[N];
+
+// Graph
+vector<int> g[N];
+
+void bfs() {
+    queue<info> q;
+    q.push({1, 0});
+
     while (!q.empty()) {
-        int u = q.front();
+        int u = q.front().x;
+        int step = q.front().y;
         q.pop();
-        
-        for (int v : adj[u]) {
-            if (dist[v] == INT_MAX) {
-                // 未訪問の頂点の場合
-                dist[v] = dist[u] + 1;
-                parent[v] = u;
-                q.push(v);
-            } else if (v != parent[u]) {
-                // 閉路が見つかった場合
-                int cycle_length = dist[u] + dist[v] + 1;
-                if (cycle_length < min_cycle) {
-                    min_cycle = cycle_length;
-                    // 閉路のノードを記録する
-                    vector<int> tmp_cycle;
-                    int cur = u;
-                    while (cur != -1) {
-                        tmp_cycle.push_back(cur);
-                        cur = parent[cur];
-                    }
-                    reverse(tmp_cycle.begin(), tmp_cycle.end());
-                    cur = v;
-                    while (cur != -1) {
-                        tmp_cycle.push_back(cur);
-                        cur = parent[cur];
-                    }
-                    cycle_nodes = tmp_cycle;
-                }
-            }
+
+        // ノード1に戻ってきた場合、結果を出力して終了
+        if (vis[u] && u == 1) {
+            cout << step << '\n';
+            return;
+        }
+
+        // すでに訪問済みのノードはスキップ
+        if (vis[u]) {
+            continue;
+        }
+
+        // ノードを訪問済みとしてマーク
+        vis[u] = 1;
+
+        // 接続されているノードをすべてキューに追加
+        for (auto v : g[u]) {
+            q.push({v, step + 1});
         }
     }
-    
-    return cycle_nodes;
+
+    // ノード1に戻る経路が見つからなかった場合
+    cout << -1 << '\n';
 }
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(0);
 
-    int N, M;
-    cin >> N >> M;
-    vector<vector<int>> adj(N + 1); // 隣接リスト
+    // N 頂点 M 辺
+    cin >> n >> m;
 
-    // 辺の入力
-    for (int i = 0; i < M; ++i) {
+    // グラフのエッジ情報を入力
+    while (m--) {
+        // 頂点aから頂点bへ伸びる辺
         int a, b;
         cin >> a >> b;
-        adj[a].push_back(b);
+        g[a].push_back(b);
     }
 
-    // 閉路の検出
-    vector<int> cycle = findShortestCycle(N, adj);
-
-    if (cycle.empty()) {
-        // 閉路が存在しない場合
-        cout << -1 << endl;
-    } else {
-        // cout << cycle.size() - 1 << endl;
-        cout << "閉路の長さ: " << cycle.size() << endl;
-        cout << "閉路の経路: ";
-        for (int node : cycle) {
-            cout << node << " ";
-        }
-        cout << endl;
-    }
-
+    // 幅優先探索
+    bfs();
     return 0;
 }
