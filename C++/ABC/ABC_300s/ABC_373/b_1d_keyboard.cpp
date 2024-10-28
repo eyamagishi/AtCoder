@@ -35,14 +35,33 @@ int main() {
     /* 実装箇所 */
     string s;
     cin >> s;
-    int cnt = 0;
-    char idx = 'A';
-    rep (i, 0, SZ(s)) {
-        cnt += abs(idx - s[i]);
-        idx = s[i];
+    vector<int> x(26);
+    rep (i, 0, 26) {
+        x.at(s[i] - 'A') = i;
     }
-
-    cout << cnt << '\n';
+    int ans = 0;
+    rep (i, 0, 25) {
+        ans += abs(x.at(i) - x.at(i + 1));
+    }
+    cout << ans << '\n';
     /* 実装箇所 */
     return 0;
 }
+
+/* B - 1D Keyboard 解説 by MtSaka */
+
+/* 実装例(C++): */
+// #include <bits/stdc++.h>
+// using namespace std;
+
+// int main() {
+//     string s;
+//     cin >> s;
+//     vector<int> x(26);
+//     for (int i = 0; i < 26; ++i)
+//         x[s[i] - 'A'] = i;
+//     int ans = 0;
+//     for (int i = 0; i < 25; ++i)
+//         ans += abs(x[i] - x[i + 1]);
+//     cout << ans << endl;
+// }
